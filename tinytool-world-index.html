@@ -1,0 +1,187 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="TinyTool World — free tools for product descriptions, social captions, and better product titles.">
+  <title>TinyTool World — Free Writing Tools</title>
+  <style>
+    :root { --ink:#172033; --muted:#5d687d; --brand:#5b4bdb; --brand2:#4032b8; --bg:#f5f7fc; --card:#fff; --line:#e2e7f0; --good:#147a4a; }
+    * { box-sizing:border-box; }
+    body { margin:0; font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif; color:var(--ink); background:var(--bg); line-height:1.5; }
+    header { background:linear-gradient(135deg,#28205f,#6557e8); color:white; padding:38px 18px 32px; text-align:center; }
+    header .tag { display:inline-block; padding:5px 10px; border:1px solid #ffffff55; border-radius:99px; font-size:.82rem; margin-bottom:10px; }
+    h1 { margin:0; font-size:clamp(2rem,6vw,3rem); letter-spacing:-.04em; }
+    header p { margin:10px auto 0; max-width:620px; color:#eceaff; }
+    main { max-width:1080px; padding:24px 16px 48px; margin:auto; }
+    .intro { text-align:center; margin:6px auto 22px; max-width:700px; }
+    .tools { display:grid; grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr)); gap:18px; }
+    .card { background:var(--card); border:1px solid var(--line); border-radius:18px; padding:20px; box-shadow:0 8px 28px #1b28520a; }
+    .icon { font-size:1.65rem; }
+    h2 { margin:5px 0 4px; font-size:1.25rem; }
+    .sub { color:var(--muted); font-size:.93rem; margin:0 0 16px; }
+    label { display:block; font-size:.9rem; font-weight:650; margin:12px 0 6px; }
+    input, textarea, select { width:100%; padding:11px 12px; border:1px solid #ccd4e2; border-radius:10px; font:inherit; color:var(--ink); background:#fff; }
+    textarea { min-height:92px; resize:vertical; }
+    input:focus,textarea:focus,select:focus { outline:3px solid #5b4bdb22; border-color:var(--brand); }
+    button { border:0; border-radius:10px; padding:11px 14px; margin-top:14px; background:var(--brand); color:#fff; font:inherit; font-weight:700; cursor:pointer; }
+    button:hover { background:var(--brand2); }
+    button.secondary { background:#ecebff; color:#342a9b; }
+    .output { margin-top:15px; padding:13px; border-radius:12px; background:#f7f8fc; border:1px solid var(--line); min-height:54px; white-space:pre-wrap; overflow-wrap:anywhere; }
+    .output:empty::before { content:"Your result will appear here."; color:#8a94a8; }
+    .actions { display:flex; gap:8px; flex-wrap:wrap; }
+    .actions button { margin-top:9px; }
+    .small { color:var(--muted); font-size:.82rem; }
+    footer { text-align:center; padding:22px 16px; color:var(--muted); font-size:.88rem; }
+    .notice { margin:18px auto 0; padding:12px 14px; border-radius:12px; background:#eefff5; color:var(--good); max-width:800px; font-size:.9rem; }
+  </style>
+</head>
+<body>
+  <header>
+    <span class="tag">100% Free · No API Key</span>
+    <h1>🌍 TinyTool World</h1>
+    <p>Simple, free writing tools to help online sellers create clearer product copy and social posts.</p>
+  </header>
+  <main>
+    <div class="intro">
+      <h2>Three useful tools. One simple website.</h2>
+      <p class="sub">Enter a few details, generate a draft, then copy and edit it for your business.</p>
+    </div>
+    <section class="tools" aria-label="Free writing tools">
+      <article class="card">
+        <div class="icon" aria-hidden="true">🛍️</div>
+        <h2>Product Description Generator</h2>
+        <p class="sub">Create a helpful product description from your details.</p>
+        <label for="productName">Product name</label>
+        <input id="productName" placeholder="e.g. Stainless Steel Water Bottle">
+        <label for="features">Features or benefits</label>
+        <textarea id="features" placeholder="e.g. 750 ml, leak-resistant lid, reusable"></textarea>
+        <label for="audience">Target customer (optional)</label>
+        <input id="audience" placeholder="e.g. commuters and students">
+        <button onclick="makeDescription()">Generate description</button>
+        <div id="descriptionOut" class="output" aria-live="polite"></div>
+        <div class="actions"><button class="secondary" onclick="copyOutput('descriptionOut')">Copy result</button></div>
+      </article>
+
+      <article class="card">
+        <div class="icon" aria-hidden="true">📣</div>
+        <h2>Social Caption Generator</h2>
+        <p class="sub">Draft a caption for your next social media post.</p>
+        <label for="captionProduct">Product or topic</label>
+        <input id="captionProduct" placeholder="e.g. Handmade scented candles">
+        <label for="captionDetails">Key message or offer</label>
+        <textarea id="captionDetails" placeholder="e.g. cozy scents for relaxing evenings"></textarea>
+        <label for="platform">Platform</label>
+        <select id="platform">
+          <option value="Instagram">Instagram</option>
+          <option value="Facebook">Facebook</option>
+          <option value="TikTok">TikTok</option>
+          <option value="X">X</option>
+          <option value="LinkedIn">LinkedIn</option>
+        </select>
+        <button onclick="makeCaption()">Generate caption</button>
+        <div id="captionOut" class="output" aria-live="polite"></div>
+        <div class="actions"><button class="secondary" onclick="copyOutput('captionOut')">Copy result</button></div>
+      </article>
+
+      <article class="card">
+        <div class="icon" aria-hidden="true">✨</div>
+        <h2>Product Title Improver</h2>
+        <p class="sub">Turn a basic product title into clearer title ideas.</p>
+        <label for="titleInput">Current product title</label>
+        <input id="titleInput" placeholder="e.g. bottle">
+        <label for="titleKeywords">Important keywords (optional)</label>
+        <input id="titleKeywords" placeholder="e.g. insulated, reusable, 750 ml">
+        <label for="titleStyle">Title style</label>
+        <select id="titleStyle">
+          <option value="clear">Clear and descriptive</option>
+          <option value="benefit">Benefit-focused</option>
+          <option value="short">Short and simple</option>
+        </select>
+        <button onclick="improveTitle()">Improve title</button>
+        <div id="titleOut" class="output" aria-live="polite"></div>
+        <div class="actions"><button class="secondary" onclick="copyOutput('titleOut')">Copy result</button></div>
+      </article>
+    </section>
+    <div class="notice">Privacy-friendly: these tools run in your browser. Your text is not sent to an AI service. Results are templates, so review them for accuracy before publishing.</div>
+  </main>
+  <footer>© <span id="year"></span> TinyTool World · Free browser-based tools</footer>
+
+  <script>
+    const clean = value => (value || "").trim();
+    const sentence = value => {
+      const s = clean(value).replace(/\s+/g, " ");
+      if (!s) return "";
+      return /[.!?]$/.test(s) ? s : s + ".";
+    };
+    function makeDescription() {
+      const name = clean(document.getElementById("productName").value);
+      const features = clean(document.getElementById("features").value);
+      const audience = clean(document.getElementById("audience").value);
+      if (!name) { document.getElementById("descriptionOut").textContent = "Please enter a product name first."; return; }
+      const featureList = features ? features.split(/[,;\n]+/).map(x => x.trim()).filter(Boolean) : [];
+      let result = `${name}\n\nMeet ${name} — a practical choice for everyday use.`;
+      if (featureList.length) result += `\n\nWhy you'll like it:\n${featureList.map(x => "• " + sentence(x)).join("\n")}`;
+      if (audience) result += `\n\nDesigned with ${audience} in mind, it can be a useful addition to your routine.`;
+      result += "\n\nAdd this item to your collection and enjoy a simple solution for your needs.";
+      result += "\n\nNote: Check all product details and claims before publishing.";
+      document.getElementById("descriptionOut").textContent = result;
+    }
+    function makeCaption() {
+      const product = clean(document.getElementById("captionProduct").value);
+      const details = clean(document.getElementById("captionDetails").value);
+      const platform = document.getElementById("platform").value;
+      if (!product) { document.getElementById("captionOut").textContent = "Please enter a product or topic first."; return; }
+      const hashtags = product.toLowerCase().match(/[a-z0-9]+/g) || [];
+      const tags = [...new Set(hashtags)].slice(0, 4).map(w => "#" + w).join(" ");
+      let result = `${product} ✨\n`;
+      if (details) result += `${sentence(details)}\n`;
+      result += "\nLooking for something that fits your everyday needs? Take a closer look and tell us what you think!";
+      if (platform === "LinkedIn") result = `${product}\n\n${details ? sentence(details) + "\n\n" : ""}Explore how this could fit your needs. What features matter most to you?`;
+      if (platform === "X") result = `${product} ✨ ${details ? sentence(details) + " " : ""}Take a look and share your thoughts!`;
+      if (platform !== "LinkedIn" && platform !== "X" && tags) result += `\n\n${tags} #ShopSmall`;
+      document.getElementById("captionOut").textContent = result;
+    }
+    function titleCaseWords(text) {
+      return text.toLowerCase().replace(/\b[a-z]/g, ch => ch.toUpperCase());
+    }
+    function improveTitle() {
+      const title = clean(document.getElementById("titleInput").value).replace(/\s+/g, " ");
+      const keywords = clean(document.getElementById("titleKeywords").value).split(/[,;]+/).map(x => x.trim()).filter(Boolean);
+      const style = document.getElementById("titleStyle").value;
+      if (!title) { document.getElementById("titleOut").textContent = "Please enter your current product title first."; return; }
+      const base = titleCaseWords(title);
+      const words = [...new Set([base, ...keywords.map(titleCaseWords)])];
+      let first, second, third;
+      if (style === "short") {
+        first = base;
+        second = keywords.length ? `${base} - ${keywords[0]}` : `${base} - Everyday Essential`;
+        third = keywords.length > 1 ? `${base} - ${keywords[1]}` : `${base} - Simple and Practical`;
+      } else if (style === "benefit") {
+        first = keywords.length ? `${base} - ${keywords.slice(0,2).join(" and ")}` : `${base} - Made for Everyday Use`;
+        second = `${base} - A Practical Everyday Choice`;
+        third = keywords.length ? `${base} - ${keywords.join(", ")}` : `${base} - Useful, Simple, Versatile`;
+      } else {
+        first = keywords.length ? `${base} | ${keywords.slice(0,3).join(" | ")}` : `${base} | Everyday Use`;
+        second = keywords.length ? `${keywords[0]} ${base}` : `Everyday ${base}`;
+        third = keywords.length > 1 ? `${base} - ${keywords.slice(0,2).join(", ")}` : `${base} - Simple and Practical`;
+      }
+      document.getElementById("titleOut").textContent = `Title idea 1: ${first}\n\nTitle idea 2: ${second}\n\nTitle idea 3: ${third}\n\nTip: Keep the title accurate, readable, and within your marketplace's rules.`;
+    }
+    async function copyOutput(id) {
+      const text = document.getElementById(id).textContent.trim();
+      if (!text) { alert("Generate a result first."); return; }
+      try {
+        await navigator.clipboard.writeText(text);
+        alert("Result copied!");
+      } catch (e) {
+        const area = document.createElement("textarea");
+        area.value = text; document.body.appendChild(area); area.select();
+        const ok = document.execCommand("copy"); area.remove();
+        alert(ok ? "Result copied!" : "Copy failed. Please select and copy the text manually.");
+      }
+    }
+    document.getElementById("year").textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
